@@ -1,0 +1,22 @@
+ .g-recaptcha{
+    margin: 0px auto !important;
+   width: auto !important;
+   height: auto !important;
+   text-align: -webkit-center;
+   text-align: -moz-center;
+   text-align: -o-center;
+   text-align: -ms-center;
+   
+}
+
+.header{
+	
+	border-radius: 25px;
+    background: url(https://images.wallpaperscraft.com/image/single/smoke_bunches_colored_smoke_126073_1920x1080.jpg);
+    padding: 20px;
+}
+
+.logo{
+	
+	width:125px;height:auto;padding:10px;max-width:300px;
+}
