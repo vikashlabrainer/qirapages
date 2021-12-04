@@ -58,10 +58,10 @@ else{
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS =>"{\n  \"account_number\": \"2323230035887079\",\n  \"contact\": {\n    \"name\": \"Rghap\",\n    \"type\": \"customer\",\n    \"contact\": \"$mobile\",\n    \"email\": \"\"\n  },\n  \"amount\": \"$money_to_raz\",\n  \"currency\": \"INR\",\n  \"purpose\": \"payout\",\n  \"description\": \"Anonpe Fund Transfer\",\n  \"receipt\": \"\",\n  \"send_sms\": true,\n  \"send_email\": false,\n  \"notes\": {\n    \"random_key_1\": \"Anonpe Fund Transfer\"\n    \n  }\n}",
+  CURLOPT_POSTFIELDS =>"{\n  \"account_number\": \"  --ACCOUNT NUMBER HERE---  \",\n  \"contact\": {\n    \"name\": \"Rghap\",\n    \"type\": \"customer\",\n    \"contact\": \"$mobile\",\n    \"email\": \"\"\n  },\n  \"amount\": \"$money_to_raz\",\n  \"currency\": \"INR\",\n  \"purpose\": \"payout\",\n  \"description\": \"Anonpe Fund Transfer\",\n  \"receipt\": \"\",\n  \"send_sms\": true,\n  \"send_email\": false,\n  \"notes\": {\n    \"random_key_1\": \"Anonpe Fund Transfer\"\n    \n  }\n}",
   CURLOPT_HTTPHEADER => array(
     "Content-Type: application/json",
-    "Authorization: Basic cnpwX3Rlc3RfbVpCeTc1U1o3eGtLQ1Q6WjAxdnRScnhqaGQ5d1NwVE9yYklxdTRJ"
+    "Authorization: Basic BASE64(KEY:SECRET)"
   ),
 ));
 
