@@ -10,13 +10,26 @@ if(isset($_SESSION['logged'], $_SESSION['mobile'])){
 	$sql ="SELECT amount FROM ".TABLE_PAYMENTS." where seller='$mobile'";
 	$result = $conn->query($sql);
 	$rowresult = mysqli_query($conn, $sql);
-	$money = 0;
+	$moneycredited = 0;
         if ( $rowresult->num_rows > 0) {
           
              while ($rowsum = mysqli_fetch_assoc($rowresult)){
-                 $money +=  $rowsum['amount'];
+                 $moneycredited +=  $rowsum['amount'];
                  }
 		}
+		
+	$sqlwithdrawal ="SELECT amount FROM ".WITHDRAWAL_PAYMENTS." where number='$mobile'";
+	$result = $conn->query($sqlwithdrawal);
+	$rowresult = mysqli_query($conn, $sqlwithdrawal);
+	$moneydebited = 0;
+        if ( $rowresult->num_rows > 0) {
+          
+             while ($rowsum = mysqli_fetch_assoc($rowresult)){
+                 $moneydebited +=  $rowsum['amount'];
+                 }
+		}
+		
+		$money = $moneycredited-$moneydebited;
 	
 	 
 	?>
@@ -54,15 +67,19 @@ if(isset($_SESSION['logged'], $_SESSION['mobile'])){
 	<h1>Wallet Balance: INR <?php echo $money?></h1>
 	
 	</div>
-	<div>
+	<div style="margin:40px">
 	
 	<a href="index.php" class="btn-primary">Create Page</a>
 	
-	<a href="" class="btn-primary">Withdraw Balance</a>
+	
 	
 	
 	</div>
-	
+	<h1>Withdrawal</h1>
+	<form name="withdrawal" method="post" action="withdrawal.php">
+	<input type="text" name="withdraw" placeholder="Enter amount to withdraw"/>
+	<input type="submit" value="Withdraw Balance"/>
+	</form>
 	
 	</div>
 	
