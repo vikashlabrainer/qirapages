@@ -4,6 +4,7 @@
 </form>
 <script>
 // Checkout details as a json
+
 var options = <?php echo $json_payment?>;
 
 options.handler = function (response){
@@ -20,6 +21,8 @@ options.handler = function (response){
      },
      cache: false,
     success: function(data){
+	  $("#generatebox").fadeToggle( "fast");
+      $("#successcontainer").show();
         editor.render(data);
      console.log(data);
   }
