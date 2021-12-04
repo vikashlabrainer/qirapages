@@ -1,17 +1,82 @@
 <?php
-require __DIR__ .'/config/dbconnect.php';
+require __DIR__ .'/config/dbconnect.php';	
+require __DIR__ .'/config/razorpay.php';
+require __DIR__ .'/razorpay-php/Razorpay.php';
 include __DIR__ .'/define.php';	
-include (__DIR__ .'/functions/function.php');	
- 
+include __DIR__ .'/functions/function.php';
+use Razorpay\Api\Api;
 if(isset($_GET['url'])){
-$url = $_GET['url'];
+$url = mysqli_real_escape_string($conn,trim($_GET['url']));	
 $sql= "SELECT * FROM ".TABLE_NAME." WHERE uniqlink= '$url'";
 $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) 
 	
 { 
-
+try {
+$api = new Api($keyId, $keySecret);
 $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+$amount= $row['amount'];
+$title_sql = $row['title'];
+	//////////////////////////////////////////////////////
+	$orderData = [
+    'receipt'         => 12345,
+    'amount'          => $amount * 100, // 2000 rupees in paise
+    'currency'        => 'INR',
+    'payment_capture' => 1 // auto capture
+];
+
+$razorpayOrder = $api->order->create($orderData);
+
+$razorpayOrderId = $razorpayOrder['id'];
+$displayAmount = $amount = $orderData['amount'];
+
+if ($displayCurrency !== 'INR')
+{
+    $url = "https://api.fixer.io/latest?symbols=$displayCurrency&base=INR";
+    $exchange = json_decode(file_get_contents($url), true);
+
+    $displayAmount = $exchange['rates'][$displayCurrency] * $amount / 100;
+}
+$data = [
+    "key"               => $keyId,
+    "amount"            => $amount,
+    "name"              => "QiraPages Story",
+    "description"       => $title_sql,
+    "image"             => "",
+         
+    "prefill"           => [
+    
+    
+    
+    ],
+    "notes"             => [
+    "address"           => "NEWBIE",
+    "merchant_order_id" => $row['uniqlink'],
+    "shopping_order_id" => "3456",
+    ],
+    "theme"             => [
+    "color"             => "#20253f"
+    ],
+    "order_id"          => $razorpayOrderId,
+   
+];
+
+if ($displayCurrency !== 'INR')
+{
+    $data['display_currency']  = $displayCurrency;
+    $data['display_amount']    = $displayAmount;
+}
+
+$json_payment = json_encode($data);
+//catch exception
+}
+catch(Exception $e) {
+  echo 'Order ID creation failed' ;
+  
+  exit();
+}
+
+
 $json = $row['json'];
 
 //decoding the json 
@@ -59,7 +124,7 @@ foreach($jsonx["blocks"] as $item){
          if($item["type"]=="embed"){
 			$item["type"]="paragraph";
 
-        $temp = "<img src='https://i.ibb.co/5Y5T8WF/embedx.jpg' style='width:100%'/>";
+        $temp = "<img src= '".DOMAIN_NAME."/qirapages/img/1.svg' style='width:100%'/>";
         $vc=[];
         $vc["text"]=$temp;
            $item["data"]= $vc;
@@ -127,25 +192,16 @@ else{
 <div class="back"></div>
 <div class="registration-form">
   <header>
-    <h1>Story, Ready?</h1>
-    <sub>Finish this last step and you're done.</sub>
+    <h1>Purchase full access to this story</h1>
+    <sub>Already purchased, click here</sub>
   </header>
-<form>
+ <button id="rzp-button1">Purchase Now</button>
+    <?php
+ 
+  require __DIR__ .'/checkout/checkout.php';	
+  
+  ?>
 
-  <div class="form__group">
-  <textarea id="metadata" class="form__field" placeholder="Title of your story" rows="6"></textarea>
-  <label for="message">Title of your story</label>
-</div>
-  <div class="form__group">
-  <input type="text" id="costofstory" placeholder="Full Access Cost (INR 2- INR 9999)" onkeypress="return isNumber(event)" autocomplete="off" class="form__field">
-  <label for="amount">Story Value (In INR)</label>
-</div>
-  <div class="padder">
-              <button class="g-recaptcha publishbtn" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" data-theme="dark" data-callback='onSubmit'>Publish Now</button>
-
-         
-     </div>
- </form>
  
 </div>
   
@@ -286,7 +342,7 @@ else{
 	
 	</script>
 
-
+<script src="script/public.js?"<?php echo uniqid()?>></script> 
 
 </body>
 </html>
