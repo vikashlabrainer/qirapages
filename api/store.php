@@ -1,5 +1,4 @@
 <?php
-echo __DIR__;
 include __DIR__ .'/../define.php';	
 require __DIR__ .'/../config/dbconnect.php';
 if(isset($_POST['captcha']) && !empty($_POST['captcha'])){
