@@ -1,4 +1,5 @@
 <?php
+session_start();
 require __DIR__ .'/config/dbconnect.php';	
 require __DIR__ .'/razorpay-php/Razorpay.php';
 include __DIR__ .'/define.php';	
@@ -27,6 +28,7 @@ $title_sql = $row['title'];
 $razorpayOrder = $api->order->create($orderData);
 
 $razorpayOrderId = $razorpayOrder['id'];
+$_SESSION['razorpay_order_id'] = $razorpayOrderId;
 $displayAmount = $amount = $orderData['amount'];
 
 if (RAZORPAY_CURRENCY !== 'INR')
@@ -161,12 +163,12 @@ else{
 ?>
 
 
-
+<!doctype HTML>
 <html>
 <head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<link rel="stylesheet" type="text/css" href="css/main.css?"<?php echo uniqid()?>>
+<link rel="stylesheet" type="text/css" href="css/main.css?id="<?php echo uniqid()?>>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
@@ -177,7 +179,28 @@ else{
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/blitzer/jquery-ui.min.css" integrity="sha512-SsJq+mF6SR+NR5GizgVCURD39dLfHZg2MOJE5eoGUj0pm3Mcz0uxo370pC83L7+hnrxhXkcZeOcSOJrj0rULaA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+<style>
 
+.ce-block__content{
+     -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+
+   /*
+     Introduced in IE 10.
+     See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+   */
+   -ms-user-select: none;
+   user-select: none;
+}
+.ce-toolbar{
+    display:none;
+}
+.image-tool__caption{
+    display:none;
+}
+
+</style>
 
 
 </head>
@@ -211,23 +234,17 @@ else{
 <div id="successcontainer" class="blurred-box" title="Story is now live!">
    <div>
       <header>
-        <h1>Copy & Share</h1>
-        <p>Protected Elements on your story will remain blurred for people till the payment is not done.</p>
+        <h1>Success!</h1>
+        <p>You have now full access to this story. Thank you for using our platform</p>
       </header>
-      <div>
-        <div>
-          <!-- COPY INPUT -->
-		  <form class="form__group flexify">
-          <input type="text"  class="form__field bigtext urltoshare" readonly="readonly"/>
-		  
-          <input type="button" value="Copy" class="copybutton"/>
-		  </form>
-        </div>
-      </div>
-     
+         
     </div>
 </div>
+
+
+
 </div>
+
 
 <div id="editorjs"></div>
 
@@ -252,12 +269,28 @@ else{
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script>
 
 
 
 <script>
-
+function getCookie(name) {
+    var cname = name + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i < ca.length; i++){
+        var c = ca[i];
+        while(c.charAt(0) == ' '){
+            c = c.substring(1);
+        }
+        if(c.indexOf(cname) == 0){
+            return c.substring(cname.length, c.length);
+        }
+    }
+    return "";
+}
+	
  const editor = new EditorJS({
       autofocus: false,
       data: <?php echo $jsonx?>,
@@ -338,7 +371,11 @@ else{
   }
     });
 	
+
+	</script>
+	<script>
 	
+		
 	</script>
 
 <script src="script/public.js?"<?php echo uniqid()?>></script> 
