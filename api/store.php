@@ -33,7 +33,7 @@ if(isset($_POST['captcha']) && !empty($_POST['captcha'])){
         
 		// HARD CODING PHONE NUMBER OF THE USER AND LATER I WILL BE REPLACING THIS TO SESSION VARIABLE
 		
-		$number = '1234567890';  
+		$number = $_SESSION['mobile'];  
         
 		
 		if(empty($payload))
@@ -104,7 +104,7 @@ if(isset($_POST['captcha']) && !empty($_POST['captcha'])){
 		//$pwx = chr(mt_rand(97,122)).mt_rand(0,9).chr(mt_rand(97,122)).mt_rand(10,99).chr(mt_rand(97,122)).mt_rand(100,999);
 		
 		
-		$link_u = "FTX-$pw";
+		$link_u = "FTX$pw";
                
         
 		$sql = "INSERT INTO ".TABLE_NAME." (number,uniqlink,json,amount,title) VALUES ('$number','$link_u', '$payloadx', '$amount', '$title')";

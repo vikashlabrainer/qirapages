@@ -74,7 +74,7 @@ curl_close($curl);
 
 
 			
-			$sql_redeem_insert = "INSERT INTO ".WITHDRAWAL_PAYMENTS." (number, amount) VALUES ('$mobile', '$withdrawalrequest')";
+			$sql_redeem_insert = "INSERT INTO ".WITHDRAWAL_PAYMENTS."(number, amount) VALUES ('$mobile', '$withdrawalrequest')";
 			
 			$result = mysqli_query($conn, $sql_redeem_insert);
 			
