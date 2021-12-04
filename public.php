@@ -1,6 +1,5 @@
 <?php
 require __DIR__ .'/config/dbconnect.php';	
-require __DIR__ .'/config/razorpay.php';
 require __DIR__ .'/razorpay-php/Razorpay.php';
 include __DIR__ .'/define.php';	
 include __DIR__ .'/functions/function.php';
@@ -13,7 +12,7 @@ if (mysqli_num_rows($result) > 0)
 	
 { 
 try {
-$api = new Api($keyId, $keySecret);
+$api = new Api(RAZORPAY_KEY, RAZORPAY_SECRET);
 $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
 $amount= $row['amount'];
 $title_sql = $row['title'];
@@ -30,15 +29,15 @@ $razorpayOrder = $api->order->create($orderData);
 $razorpayOrderId = $razorpayOrder['id'];
 $displayAmount = $amount = $orderData['amount'];
 
-if ($displayCurrency !== 'INR')
+if (RAZORPAY_CURRENCY !== 'INR')
 {
-    $url = "https://api.fixer.io/latest?symbols=$displayCurrency&base=INR";
+    $url = "https://api.fixer.io/latest?symbols=RAZORPAY_CURRENCY&base=INR";
     $exchange = json_decode(file_get_contents($url), true);
 
-    $displayAmount = $exchange['rates'][$displayCurrency] * $amount / 100;
+    $displayAmount = $exchange['rates'][RAZORPAY_CURRENCY] * $amount / 100;
 }
 $data = [
-    "key"               => $keyId,
+    "key"               => RAZORPAY_KEY,
     "amount"            => $amount,
     "name"              => "QiraPages Story",
     "description"       => $title_sql,
@@ -61,7 +60,7 @@ $data = [
    
 ];
 
-if ($displayCurrency !== 'INR')
+if (RAZORPAY_CURRENCY !== 'INR')
 {
     $data['display_currency']  = $displayCurrency;
     $data['display_amount']    = $displayAmount;
