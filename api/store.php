@@ -3,7 +3,8 @@ echo __DIR__;
 include __DIR__ .'/../define.php';	
 require __DIR__ .'/../config/dbconnect.php';
 if(isset($_POST['captcha']) && !empty($_POST['captcha'])){
-    $secretKey = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe';
+	
+    $secretKey = CAPTCHA_SECRET;
     
 	$verifyResponse = file_get_contents('https://google.com/recaptcha/api/siteverify?secret='.$secretKey.'&response='.$_POST['captcha']); 
     
