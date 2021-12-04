@@ -292,6 +292,16 @@ function getCookie(name) {
 }
 	
  const editor = new EditorJS({
+	   onReady: () => {
+      let editable_elements = document.querySelectorAll("[contenteditable=true]");
+    editable_elements.forEach(el => el.removeAttribute("contenteditable"))
+  editable_elements.forEach(el => el.setAttribute('draggable', false))
+   },
+     onChange: () => {
+             let editable_elements = document.querySelectorAll("[contenteditable=true]");
+    editable_elements.forEach(el => el.removeAttribute("contenteditable"))
+  console.log("chaning");
+   },
       autofocus: false,
       data: <?php echo $jsonx?>,
        placeholder: 'Let`s write an awesome story and earn! Marked content will be hidden for viewers unless they don`t purchase your story',
@@ -330,7 +340,7 @@ function getCookie(name) {
       tunes: ['anchorTune'],
       config: {
         endpoints: {
-          byFile: 'api/sendtocloud.php' // Your backend file uploader endpoint
+          byFile: '' // Your backend file uploader endpoint
           
           
         }
