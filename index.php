@@ -1,3 +1,12 @@
+<?php
+session_start();
+if(!isset($_SESSION['logged'], $_SESSION['mobile'])){
+	
+	header("Location: login.php");
+	
+}
+else{
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -101,3 +110,6 @@
 
 </body>
 </html>
+<?php
+}
+?>

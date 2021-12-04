@@ -1,6 +1,15 @@
 <?php
+session_start();
+if(!isset($_SESSION['logged'], $_SESSION['mobile'])){
+	
+	 echo json_encode(array("error"=>"Login Now", "statusCode"=>300));
+            return;
+	
+}
+else{
 include __DIR__ .'/../define.php';	
 require __DIR__ .'/../config/dbconnect.php';
+
 if(isset($_POST['captcha']) && !empty($_POST['captcha'])){
 	
     $secretKey = CAPTCHA_SECRET;
@@ -143,5 +152,5 @@ else{
      echo json_encode(array("error"=>"Google Captcha Missing", "statusCode"=>300));
             return;
 }
-
+}
 ?>
