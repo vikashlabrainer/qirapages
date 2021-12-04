@@ -31,20 +31,20 @@ foreach($jsonx["blocks"] as $item){
         $temp = $item['data']['file'];
         $secret = encrypt($temp['url']);
         
-        $temp['url']= DOMAIN_NAME."/api/img.php?url=$secret";
+        $temp['url']= DOMAIN_NAME."/qirapages/api/img.php?url=$secret";
         
         $item["data"]["file"] = $temp;
         }
          if($item["type"]=="paragraph"){
         $temp = $item['data']['text'];
-        $temp = "<img src='https://i.ibb.co/68LR1CB/This-portion-was-locked.png' style='width:100%'/>";
+        $temp = "<img src= '".DOMAIN_NAME."/qirapages/img/1.svg' style='width:100%'/>";
         
         $item["data"]["text"] = $temp;
         }
           if($item["type"]=="math"){
               $item["type"]="paragraph";
         $temp = $item['data']['text'];
-        $temp = "<img src='https://i.ibb.co/yPbbvQC/This-portion-was-locked-1.png' style='width:100%'/>";
+        $temp = "<img src= '".DOMAIN_NAME."/qirapages/img/2.svg' style='width:100%'/>";
         
         $item["data"]["text"] = $temp;
         }
