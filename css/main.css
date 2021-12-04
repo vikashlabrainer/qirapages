@@ -175,3 +175,16 @@ div#successcontainer{
 	display:none;
 	
 }
+#rzp-button1{
+        border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    background: linear-gradient(
+346deg, #243f56, #fe4ebade);
+    margin: 10px;
+    border-radius: 20px;
+}
