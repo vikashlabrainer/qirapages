@@ -37,7 +37,7 @@
       tunes: ['anchorTune'],
       config: {
         endpoints: {
-          byFile: 'api/sendtocloud.php' // Your backend file uploader endpoint
+          byFile: 'https://anonpe.com/gcp/content.php' // Your backend file uploader endpoint
           
           
         }
