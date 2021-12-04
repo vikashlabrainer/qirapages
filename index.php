@@ -55,7 +55,7 @@
 
 
 
-<div id="success" class="blurred-box" title="Story is now live!">
+<div id="successcontainer" class="blurred-box" title="Story is now live!">
    <div>
       <header>
         <h1>Copy & Share</h1>
@@ -64,8 +64,11 @@
       <div>
         <div>
           <!-- COPY INPUT -->
-          <input type="text" readonly="readonly" />
-          
+		  <form class="form__group flexify">
+          <input type="text"  class="form__field bigtext urltoshare" readonly="readonly"/>
+		  
+          <input type="button" value="Copy" class="copybutton"/>
+		  </form>
         </div>
       </div>
      
@@ -90,7 +93,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/nested-list@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@2.8.0/dist/bundle.js" integrity="sha256-2AB9mmeBFiQRLsgAFDJe1buZSDDpO4aSpJlDlW008EQ=" crossorigin="anonymous"></script>
 <script src="script/bundle.js"></script> 
-<script src="script/main.js"></script> 
+<script src="script/main.js?"<?php echo uniqid()?>></script> 
 <!-- End of libraries of editor js -->
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
