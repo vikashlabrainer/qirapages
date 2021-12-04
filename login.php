@@ -1,38 +1,14 @@
+<?php
+session_start();
+$token = openssl_random_pseudo_bytes(16);
+$token = bin2hex($token);
+$_SESSION['token'] = $token;
+?>
 <html>
 <head>
-
-<style>
-.container{
-	
-	
-	    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-content: space-around;
-    align-items: center;
-    margin-top: 10%;
-    color: white;
-	
-}
-
-input {
-	
-    padding: 8px;
-    font-size: 20px;
-
-	
-}
-
-body{
-	
-	
-	background:black;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
 <body>
-
-
 
 <div class="container">
 <img src="https://ftx-rp.netlify.app/img/ftx21.webp"/>
@@ -40,10 +16,29 @@ body{
 <div>
 <sub>By default your OTP is 101010.</sub>
 </div>
+
+<div id="responder"></div>
 <div>
 <form id="frm1">
-<input type="text" name="mobile" id="mobile" placeholder="Mobile Number"/>
-<input type="submit" name="sub1" value="GET OTP"/>
+
+<input type="text" name="newuser" id="mobilex" autocomplete="off" placeholder="Enter your phone number"/>
+<input type="hidden" name="xsrf-token" id="xsrf" autocomplete="off" value="<?php echo $token?>"/>
+<div>
+
+<input type="submit" class="submit" name="sb1" value="Get OTP"/>
+</div>
+</form>
+<form id="otpbox">
+
+<input type="password" name="otp" id="userotp" autocomplete="off" placeholder="One Time Password"/>
+<input type="hidden" name="xsrf-token" id="xsrf-otp" autocomplete="off" value="<?php echo $token?>"/>
+
+<div>
+<input type="button" class="submit" name="changmobile" id="changmobile1" value="Change Mobile number"/>
+<input type="submit" class="submit" name="sb2" value="Login"/>
+</div>
+
+
 </form>
 
 </div>
@@ -51,12 +46,7 @@ body{
 
 </div>
 </div>
-<script>
-
-
-
-
-</script>
+<script src="script/login.js"></script>
 </body>
 
 </html>

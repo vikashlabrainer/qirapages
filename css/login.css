@@ -1,0 +1,125 @@
+.container{
+	
+	
+	    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: space-around;
+    align-items: center;
+    margin-top: 10%;
+    color: white;
+	
+}
+
+input {
+	
+    padding: 8px;
+    font-size: 20px;
+
+	
+}
+
+body{
+	
+	
+	background:black;
+}
+
+	#mobilex{
+	padding: 8px;
+    font-size: 15px;
+    margin: 10px;
+	
+	}
+		#mobilex:focus{
+	padding: 8px;
+    font-size: 15px;
+    margin: 10px;
+	
+	}
+	
+	
+	#otpbox{    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    margin: 0px auto;
+    text-align: center;
+    align-items: center;
+	display: none;
+	
+	}
+	
+	
+			#userotp{
+	padding: 8px;
+    font-size: 15px;
+    margin: 10px;
+	
+	}
+		#userotp:focus{
+	padding: 8px;
+    font-size: 15px;
+    margin: 10px;
+	
+	}
+	
+	.submit{
+	
+	    background: linear-gradient(
+70deg, #0d235c, #1117666e);
+    padding: 13px;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    font-size: 15px;
+	
+	}
+	.submit:hover{
+	
+	    background: linear-gradient(
+70deg, #0d235c, #fff);
+cursor:hand;
+    padding: 13px;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    font-size: 15px;
+	
+	}
+	
+	.error{
+		
+		background: #ff000014;
+padding: 10px;
+border-radius: 10px;
+color: #fff;
+width: fit-content;
+margin: 5px auto;
+		
+	}
+	
+	.success{
+		
+		
+		background: #25d72214;
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+    width: fit-content;
+    margin: 5px auto;
+}
+
+#frm1{    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    margin: 0px auto;
+    text-align: center;
+    align-items: center;
+	
+	}
